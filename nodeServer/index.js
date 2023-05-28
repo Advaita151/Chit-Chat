@@ -15,7 +15,7 @@ const users ={};
 
 io.on('connection',socket =>{
     socket.on('new-user-joined', naam =>{
-        console.log("New user", naam)
+        
         users[socket.id] = naam;
         socket.broadcast.emit('user-joined', naam);
     });
@@ -23,5 +23,13 @@ io.on('connection',socket =>{
     socket.on('send', message =>{
         socket.broadcast.emit('recieve', {message: message, naam: users[socket.id]})
     });
+
+    socket.on('disconnect', message =>{
+        socket.broadcast.emit('left', users[socket.id]);
+        delete users[socket.id];
+    });
+
+    
+   
 })
 
