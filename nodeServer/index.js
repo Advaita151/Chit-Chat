@@ -1,6 +1,10 @@
 //This is js for socket.io
 
-const io = require('socket.io')(8000)
+const io = require('socket.io')(8000, {
+    cors: {
+        origin: "*"
+    }
+})
 const cors = require('cors')
 const express = require('express')
 const mongoose = require('mongoose')
